@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>高精度加减乘除</title>
+<style type="text/css">
+*{margin: 0;padding: 0;}
+body{font:small arial,sans-serif;box-sizing: border-box;padding: 10px;background-color: #f5f5f5;}
+html,body{height: 100%;}
+.row,.card,.card-body,.hex-textarea{width: 100%;box-sizing: border-box;}
+.row:after{content: "";display: block;clear: both;}
+.row-md1,.row-md2,.row-md3,.row-md4,.row-md5,.row-md6,.row-md7,.row-md8,.row-md9{float: left;position: relative;display: block;
+box-sizing: border-box;}
+.row-md1{width: 10%}
+.row-md2{width: 20%}
+.row-md3{width: 30%}
+.row-md4{width: 40%}
+.row-md5{width: 50%}
+.row-md6{width: 60%}
+.row-md7{width: 70%}
+.row-md8{width: 80%}
+.row-md9{width: 90%}
+.row-space10>*{padding: 5px;}
+.tc{text-align: center;}
+.card{background-color: #fff;}
+.card-header{height: 32px;line-height: 32px;border-bottom: 1px solid #ddd;padding: 0 5px;}
+.card-body{padding: 5px;}
+.hu-textarea{min-height: 200px;height: auto;line-height: 20px;padding: 6px 10px;resize: vertical;border: 1px solid #e5e5e5;display: block;}
+.hu-select:focus,.hu-input:focus,.hu-textarea:focus{
+border-color: #C9C9C9!important;
+outline: 0;
+}
+.hu-button{cursor: pointer;outline: 0;background-color: #01aaed;color: #fff;border-radius: 8px;}
+.hu-button:hover{opacity: 0.8;}
+.hu-button:active{opacity: 0.6;}
+.hu-button,.hu-select,.hu-input{width: 100%;height: 32px;line-height: 32px;padding: 0 5px;border: 1px solid #e5e5e5;box-sizing: border-box;}
+</style>
+</head>
+<body>
+<form class="row row-space10" id="bigDigitForm">
+	<div class="row-md3">
+		<div class="card">
+			<input id="numInput1" class="hu-input" name="num1" />
+		</div>
+	</div>
+	<div class="row-md1">
+		<div class="card">
+			<select class="hu-select" id="oparation" name="oparation" onchange="equal(this)">
+				<option value="1">加</option>
+				<option value="2">减</option>
+				<option value="3">乘</option>
+				<option value="4">除</option>
+				<option value="5">求模</option>
+			</select>
+		</div>
+	</div>
+	<div class="row-md2">
+		<div class="card">
+			<input class="hu-input" id="numInput2" name="num2" />
+		</div>
+	</div>
+	<div class="row-md1">
+		<div class="card">
+			<button type="button" onclick="equal(this)" class="hu-button">等于</button>
+		</div>
+	</div>
+	<div class="row-md3">
+		<div class="card">
+			<input class="hu-input" id="resultInput" name="result" />
+			<input class="hu-input" id="resultInput2" name="result" />
+		</div>
+	</div>
+</form>
+<script type="text/javascript" src="./bigDigit.js"></script>
+<script type="text/javascript">
+var _3digit_reg = /\B(?=(\d{3})+(?!\d))/g;
+function equal(){
+	var numInput1 = document.getElementById('numInput1'),
+	numInput2 = document.getElementById('numInput2'),
+	resultInput = document.getElementById('resultInput'),
+	resultInput2 = document.getElementById('resultInput2'),
+	oparation = document.getElementById('oparation');
+	var n1 = numInput1.value,
+	n2 = numInput2.value,
+	opt = oparation.value;
+	if (n1&&n2) {
+		switch(parseInt(opt)){
+			case 1:
+				resultInput.value = (new BigDigit(n1).plus(n2)).replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1)+parseInt(n2)).toString().replace(_3digit_reg,',');
+				break;
+			case 2:
+				resultInput.value = (new BigDigit(n1).minus(n2)).replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1)-parseInt(n2)).toString().replace(_3digit_reg,',');
+				break;
+			case 3:
+				resultInput.value = (new BigDigit(n1).multiply(n2)).replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1)*parseInt(n2)).toString().replace(_3digit_reg,',');
+				break;
+			case 4:
+				var result = new BigDigit(n1).divide(n2);
+				resultInput.value = result.qt + ' ---- 余数：'+result.rd;
+				var result2 = parseInt(parseInt(n1)/parseInt(n2));
+				resultInput2.value = result2 + ' ---- 余数：'+(parseInt(n1)%parseInt(n2));
+				break;
+			case 5:
+				var result = new BigDigit(n1).mod(n2);
+				resultInput.value = result;
+				resultInput2.value = (parseInt(n1)%parseInt(n2));
+				break;
+			default:
+		}
+	}
+}
+</script>
+</body>
+</html>

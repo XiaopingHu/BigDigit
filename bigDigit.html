@@ -6,20 +6,20 @@
 *{margin: 0;padding: 0;}
 body{font:small arial,sans-serif;box-sizing: border-box;padding: 10px;background-color: #f5f5f5;}
 html,body{height: 100%;}
-.row,.card,.card-body,.hex-textarea{width: 100%;box-sizing: border-box;}
-.row:after{content: "";display: block;clear: both;}
-.row-md1,.row-md2,.row-md3,.row-md4,.row-md5,.row-md6,.row-md7,.row-md8,.row-md9{float: left;position: relative;display: block;
+.hu-row,.card,.card-body,.hex-textarea{width: 100%;box-sizing: border-box;}
+.hu-row:after{content: "";display: block;clear: both;}
+.hu-row-md1,.hu-row-md2,.hu-row-md3,.hu-row-md4,.hu-row-md5,.hu-row-md6,.hu-row-md7,.hu-row-md8,.hu-row-md9{float: left;position: relative;display: block;
 box-sizing: border-box;}
-.row-md1{width: 10%}
-.row-md2{width: 20%}
-.row-md3{width: 30%}
-.row-md4{width: 40%}
-.row-md5{width: 50%}
-.row-md6{width: 60%}
-.row-md7{width: 70%}
-.row-md8{width: 80%}
-.row-md9{width: 90%}
-.row-space10>*{padding: 5px;}
+.hu-row-md1{width: 10%}
+.hu-row-md2{width: 20%}
+.hu-row-md3{width: 30%}
+.hu-row-md4{width: 40%}
+.hu-row-md5{width: 50%}
+.hu-row-md6{width: 60%}
+.hu-row-md7{width: 70%}
+.hu-row-md8{width: 80%}
+.hu-row-md9{width: 90%}
+.hu-row-space10>*{padding: 5px;}
 .tc{text-align: center;}
 .card{background-color: #fff;}
 .card-header{height: 32px;line-height: 32px;border-bottom: 1px solid #ddd;padding: 0 5px;}
@@ -36,13 +36,13 @@ outline: 0;
 </style>
 </head>
 <body>
-<form class="row row-space10" id="bigDigitForm">
-	<div class="row-md3">
+<form class="hu-row hu-row-space10" id="bigDigitForm">
+	<div class="hu-row-md3">
 		<div class="card">
 			<input id="numInput1" class="hu-input" name="num1" />
 		</div>
 	</div>
-	<div class="row-md1">
+	<div class="hu-row-md1">
 		<div class="card">
 			<select class="hu-select" id="oparation" name="oparation" onchange="equal(this)">
 				<option value="1">加</option>
@@ -53,17 +53,17 @@ outline: 0;
 			</select>
 		</div>
 	</div>
-	<div class="row-md2">
+	<div class="hu-row-md2">
 		<div class="card">
 			<input class="hu-input" id="numInput2" name="num2" />
 		</div>
 	</div>
-	<div class="row-md1">
+	<div class="hu-row-md1">
 		<div class="card">
 			<button type="button" onclick="equal(this)" class="hu-button">等于</button>
 		</div>
 	</div>
-	<div class="row-md3">
+	<div class="hu-row-md3">
 		<div class="card">
 			<input class="hu-input" id="resultInput" name="result" />
 			<input class="hu-input" id="resultInput2" name="result" />

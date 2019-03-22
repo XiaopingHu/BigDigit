@@ -153,6 +153,22 @@
  		}
 	 	return result;
 	 },
+	 removeZeroPrefix:function(array,isRv){//移除数组中前缀为0的元素,isRv是否从右到左的方向起
+	 	var k = 0;
+	 	if (isRv) {
+	 		k = array.length - 1;
+			for (; k >= 0; k--) {
+				if (array[k]!=0) break;
+			}
+			return this.subArray(array,0,k+1);
+	 	}else{
+	 		for (; k < array.length; k++) {
+	 			if (array[k]!=0) break;
+	 		}
+	 		return k==array.length?[0]:this.subArray(array,k,array.length-k);
+	 	}
+	 	
+	 },
 	 sum:function(n1,n2,isRv){//求两个数组的和，isRv表示是否倒序，如：120在数组表示为[0,2,1]时，即表示倒序，默认不倒序，返回结果需要倒序输出，即由右往左输出
 	 	var carry = 0,//进位数
 	 	result = [];
@@ -195,11 +211,7 @@
 		}
 		var end = n1[i]-borrow;
 		end>0&&result.push(end);
-		var k = result.length - 1;
-		for (; k >= 0; k--) {
-			if (result[k]!=0) break;
-		}
-		return this.subArray(result,0,k+1);
+		return this.removeZeroPrefix(result,true);
 	 },
 	 product:function(n1,n2){//两个数组之积，返回结果需要倒序输出，即由右往左输出
 	 	var that = this,
@@ -235,6 +247,7 @@
 			subLen = n2.length;
 			for (;st<n1.length;) {
 				that.subArray(n1,st,subLen,_n1);
+				_n1[0]==0&&_n1.length>1&&(_n1=that.removeZeroPrefix(_n1));//排除00的情况
 				ca = that.compareArray(_n1,n2);
 				if (st+subLen>n1.length) {subLen = n1.length - st;}
 				st+=subLen;
@@ -263,7 +276,7 @@
 					_n1 = [];
 					for (var i = 0; st<n1.length&&i < subLen-1; i++)result.push(0);
 				}else{
-					subLen==1;
+					subLen=1;
 					result.length>0 && result.push(0);
 				}
 			}

@@ -1,6 +1,7 @@
 /**
  * 高精度加减乘除
- *
+ * @author Xiaoping Hu
+ * @date:2019-02-22
  */
  function BigDigit(n){
  	this.isPositive = true;

@@ -245,12 +245,11 @@
 		else{
 			var st=0,_n1 = [],
 			subLen = n2.length;
-			for (;st<n1.length;) {
+			while (st<n1.length) {
 				that.subArray(n1,st,subLen,_n1);
+				st +=subLen;
 				_n1[0]==0&&_n1.length>1&&(_n1=that.removeZeroPrefix(_n1));//排除00的情况
 				ca = that.compareArray(_n1,n2);
-				if (st+subLen>n1.length) {subLen = n1.length - st;}
-				st+=subLen;
 				if (ca==1) {
 					var q = 2, 
 					_n2 = that.reverse(that.product(n2,[q]),1), __n2=n2,
@@ -262,9 +261,10 @@
 					}
 					if(_ca==0){
 						result.push(q);
-						subLen = n2.length;
 						_n1 = [];
-						for (var i = 0; st<n1.length&&i < subLen-1; i++)result.push(0);
+						subLen = n2.length;
+						var zeroLen = (st+subLen>n1.length?n1.length-st:subLen)-1;
+						for (var i = 0; i < zeroLen; i++)result.push(0);
 					}else{
 						result.push(q-1);
 						_n1 = that.reverse(that.difference(_n1,__n2),1);
@@ -272,9 +272,10 @@
 					}
 				}else if (ca==0) {
 					result.push(1);
-					subLen = n2.length;
 					_n1 = [];
-					for (var i = 0; st<n1.length&&i < subLen-1; i++)result.push(0);
+					subLen = n2.length;
+					var zeroLen = (st+subLen>n1.length?n1.length-st:subLen)-1;
+					for (var i = 0; i < zeroLen; i++)result.push(0);
 				}else{
 					subLen=1;
 					result.length>0 && result.push(0);

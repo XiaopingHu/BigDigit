@@ -15,13 +15,15 @@
  		var that = this, ns = [];
  		if (n.constructor == Array) {return n;}
  		if (typeof n === 'number') {n = n.toString();}
+ 		n = n.replace(/,|\s+|[^-+0-9]/g,'').replace(/^(-|\+)?0+/,function(rc,_1){
+ 			return _1||'';
+ 		});//排除不符合的情况
  		if (!/^(-|\+)?[1-9]\d*$/.test(n)) {return [0];}
  		if (n.charAt(0)=='-') {
  			that.isPositive = false;
  		}else if (n.charAt(0)=='+') {
  			that.isPositive = true;
  		}else{
- 			that.isPositive = true;
  			ns.push(parseInt(n.charAt(0)));
  		}
  		for (var i = 1;i<n.length;i++) {
@@ -254,7 +256,7 @@
 					var q = 2, 
 					_n2 = that.reverse(that.product(n2,[q]),1), __n2=n2,
 					_ca = that.compareArray(_n1,_n2);
-					for (; _ca == 1;) {
+					for (; _ca == 1;) {//尝试求商
 						__n2 = _n2;
 						_n2 = that.reverse(that.product(n2,[++q]),1);
 						_ca = that.compareArray(_n1,_n2);
@@ -267,14 +269,14 @@
 						for (var i = 0; i < zeroLen; i++)result.push(0);
 					}else{
 						result.push(q-1);
-						_n1 = that.reverse(that.difference(_n1,__n2),1);
+						_n1 = that.reverse(that.difference(_n1,__n2),1);//得到余数
 						subLen = 1;
 					}
 				}else if (ca==0) {
 					result.push(1);
 					_n1 = [];
 					subLen = n2.length;
-					var zeroLen = (st+subLen>n1.length?n1.length-st:subLen)-1;
+					var zeroLen = (st+subLen>n1.length?n1.length-st:subLen)-1;//补零个数
 					for (var i = 0; i < zeroLen; i++)result.push(0);
 				}else{
 					subLen=1;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>高精度加减乘除</title>
 <style type="text/css">
 *{margin: 0;padding: 0;}
@@ -86,26 +87,26 @@ function equal(){
 		switch(parseInt(opt)){
 			case 1:
 				resultInput.value = (new BigDigit(n1).plus(n2)).replace(_3digit_reg,',');
-				resultInput2.value = (parseInt(n1)+parseInt(n2)).toString().replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1.replace(/,/g,''))+parseInt(n2.replace(/,/g,''))).toString().replace(_3digit_reg,',');
 				break;
 			case 2:
 				resultInput.value = (new BigDigit(n1).minus(n2)).replace(_3digit_reg,',');
-				resultInput2.value = (parseInt(n1)-parseInt(n2)).toString().replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1.replace(/,/g,''))-parseInt(n2.replace(/,/g,''))).toString().replace(_3digit_reg,',');
 				break;
 			case 3:
 				resultInput.value = (new BigDigit(n1).multiply(n2)).replace(_3digit_reg,',');
-				resultInput2.value = (parseInt(n1)*parseInt(n2)).toString().replace(_3digit_reg,',');
+				resultInput2.value = (parseInt(n1.replace(/,/g,''))*parseInt(n2.replace(/,/g,''))).toString().replace(_3digit_reg,',');
 				break;
 			case 4:
 				var result = new BigDigit(n1).divide(n2);
 				resultInput.value = result.qt + ' ---- 余数：'+result.rd;
-				var result2 = parseInt(parseInt(n1)/parseInt(n2));
-				resultInput2.value = result2 + ' ---- 余数：'+(parseInt(n1)%parseInt(n2));
+				var result2 = parseInt(parseInt(n1.replace(/,/g,''))/parseInt(n2.replace(/,/g,'')));
+				resultInput2.value = result2 + ' ---- 余数：'+(parseInt(n1.replace(/,/g,''))%parseInt(n2.replace(/,/g,'')));
 				break;
 			case 5:
 				var result = new BigDigit(n1).mod(n2);
 				resultInput.value = result;
-				resultInput2.value = (parseInt(n1)%parseInt(n2));
+				resultInput2.value = (parseInt(n1.replace(/,/g,''))%parseInt(n2.replace(/,/g,'')));
 				break;
 			default:
 		}
